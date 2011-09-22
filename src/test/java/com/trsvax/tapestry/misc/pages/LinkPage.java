@@ -12,6 +12,10 @@ public class LinkPage {
 	@InjectPage
 	private Page1 page1;
 	
+	@Property
+	@InjectPage
+	private Page1 page1init;
+	
 	@InjectComponent
 	 private Zone myZone;
 	
@@ -19,7 +23,7 @@ public class LinkPage {
 	private Logger logger;
 	
 	void onActivate() {
-
+		page1init.init("test");
 	}
 	
 	void onAboutEvent(String value) {
@@ -29,6 +33,7 @@ public class LinkPage {
 	Object onZoneEvent(String value) {
 		return myZone;
 	}
+	
 
 
 }

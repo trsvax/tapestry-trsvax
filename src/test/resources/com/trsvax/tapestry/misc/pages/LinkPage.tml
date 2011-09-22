@@ -6,6 +6,7 @@
     <t:zone t:id="myZone">zone</t:zone>
     
     <t:link page="page1" context="literal:abc">page1</t:link><br/>
+    <t:link page="page1init">page1 init</t:link><br/>
     <t:link page="page1" event="myEvent" context="literal:abc">page1 event</t:link><br/>
 	
  	<t:link context="literal:abc">link page</t:link><br/>
