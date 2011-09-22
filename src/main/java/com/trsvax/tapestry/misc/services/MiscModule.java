@@ -1,6 +1,9 @@
 package com.trsvax.tapestry.misc.services;
 
+import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
+import org.apache.tapestry5.services.ComponentClassTransformWorker;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -17,6 +20,11 @@ public class MiscModule
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
     }
+    
+    @Contribute(ComponentClassTransformWorker.class)   
+    public static void  provideWorkers(OrderedConfiguration<ComponentClassTransformWorker> workers) {    
+        workers.addInstance("LinkWithContextWorker", LinkWithContextWorker.class);
+    } 
     
     
   
