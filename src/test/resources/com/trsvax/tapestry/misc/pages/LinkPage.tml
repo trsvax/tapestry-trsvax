@@ -1,0 +1,14 @@
+<html t:type="layout" 
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+	Link Page    
+    <t:zone t:id="myZone">zone</t:zone>
+    
+    <t:link page="page1" context="literal:abc">page1</t:link><br/>
+    <t:link page="page1" event="myEvent" context="literal:abc">page1 event</t:link><br/>
+	
+ 	<t:link context="literal:abc">link page</t:link><br/>
+ 	<t:link event="aboutEvent" context="literal:abc">link page event</t:link><br/>
+ 	<t:link event="zoneEvent" context="literal:abc" zone="myZone">link page zone</t:link><br/>
+</html>

@@ -70,6 +70,8 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                              that prevents the requestLog from being set. -->
                         <append>true</append>
                     </requestLog>
+                    <useTestClasspath>true</useTestClasspath>
+					<webAppSourceDirectory>src/test/misc/webapp</webAppSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>
