@@ -13,6 +13,10 @@ public class Page1 {
 		init = value;
 	}
 	
+	Object onPassivate() {
+		return init;
+	}
+	
 	Object onMyEvent(String value) {
 		return Page1.class;
 	}

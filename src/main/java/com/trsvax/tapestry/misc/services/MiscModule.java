@@ -8,6 +8,7 @@ import org.apache.tapestry5.ioc.services.Coercion;
 import org.apache.tapestry5.ioc.services.CoercionTuple;
 import org.apache.tapestry5.runtime.Component;
 import org.apache.tapestry5.services.ComponentClassTransformWorker;
+import org.apache.tapestry5.services.LibraryMapping;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -43,7 +44,11 @@ public class MiscModule
      
         configuration.add(new CoercionTuple<Component, String>(Component.class, String.class, coercion));     
     }
-    
+     
+    public static void contributeComponentClassResolver(Configuration<LibraryMapping> configuration)
+    {
+        configuration.add(new LibraryMapping("tm", "com.trsvax.tapestry.misc"));
+    }
     
     
   
