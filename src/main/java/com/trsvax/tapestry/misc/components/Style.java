@@ -23,7 +23,7 @@ public class Style {
 			Map<String,String> items = style.getValue();
 						
 			output.append(name);
-			output.append(" {");
+			output.append("{");
 			for ( Entry<String,String> item : items.entrySet() ) {
 				output.append(item.getKey());
 				output.append(":");
