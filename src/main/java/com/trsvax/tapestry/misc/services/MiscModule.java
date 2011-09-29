@@ -1,14 +1,19 @@
 package com.trsvax.tapestry.misc.services;
 
+import java.util.Map;
+
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.ioc.Configuration;
+import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
+import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.services.Coercion;
 import org.apache.tapestry5.ioc.services.CoercionTuple;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.runtime.Component;
+import org.apache.tapestry5.services.BindingFactory;
 import org.apache.tapestry5.services.ComponentClassTransformWorker;
 import org.apache.tapestry5.services.Environment;
 import org.apache.tapestry5.services.LibraryMapping;
@@ -26,14 +31,11 @@ import com.trsvax.tapestry.StyleSupportImpl;
  */
 public class MiscModule
 {
+	public final static String id = "MiscModule";
+	
     public static void bind(ServiceBinder binder)
     {
-        // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
-        
-        // Make bind() calls on the binder object to define most IoC services.
-        // Use service builder methods (example below) when the implementation
-        // is provided inline, or requires more initialization than simply
-        // invoking the constructor.
+        binder.bind(BindingFactory.class,DefaultBindingFactory.class).withId("DefaultBindingFactory");
     }
     
     @Contribute(ComponentClassTransformWorker.class)   
@@ -42,7 +44,7 @@ public class MiscModule
     } 
     
     
-    public static void contributeTypeCoercer(Configuration<CoercionTuple> configuration)
+    public static void contributeTypeCoercer(Configuration<CoercionTuple<Component,String>> configuration)
     {
         Coercion<Component, String> coercion = new Coercion<Component, String>()
         {
@@ -84,6 +86,18 @@ public class MiscModule
        configuration.add("StyleSupport", documentLinker);
     }
     
+    public static void contributeBindingSource(MappedConfiguration<String, BindingFactory> configuration,
+
+    		@InjectService("DefaultBindingFactory")
+    		BindingFactory defaultBindingFactory
+    		) {
+        configuration.add("default", defaultBindingFactory);       
+    }
+    
+    @Contribute(Defaults.class)
+    public static void contributeDefautls(MappedConfiguration<String, StaticDefaults> configuration) {
+    	configuration.add(id,new MyDefaults());
+    }
     
   
 }
