@@ -12,6 +12,8 @@ import org.slf4j.Logger;
  * @since 2.6.0
  */
 public class DefaultBindingFactory implements BindingFactory {
+	public final static String id = "DefaultBindingFactory";
+	
 	private final Defaults defaults;
 	
 	public DefaultBindingFactory(Defaults defaults) {

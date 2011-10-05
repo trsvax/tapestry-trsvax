@@ -22,7 +22,7 @@ public class DefaultsImpl implements Defaults {
 		String key = parts[1];
 		
 		try {
-			return symbolSource.valueForSymbol(defaultBinding.getExpression());
+			return symbolSource.valueForSymbol("default:" + defaultBinding.getExpression());
 		} catch (Exception e) {
 			//don't care
 		}

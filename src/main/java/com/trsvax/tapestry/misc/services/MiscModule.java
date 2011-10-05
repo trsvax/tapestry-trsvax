@@ -1,7 +1,5 @@
 package com.trsvax.tapestry.misc.services;
 
-import java.util.Map;
-
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
@@ -31,11 +29,11 @@ import com.trsvax.tapestry.StyleSupportImpl;
  */
 public class MiscModule
 {
-	public final static String id = "MiscModule";
+	public final static String id = "com.trsvax.tapestry.misc";
 	
     public static void bind(ServiceBinder binder)
     {
-        binder.bind(BindingFactory.class,DefaultBindingFactory.class).withId("DefaultBindingFactory");
+        binder.bind(BindingFactory.class,DefaultBindingFactory.class).withId(DefaultBindingFactory.id);
     }
     
     @Contribute(ComponentClassTransformWorker.class)   
@@ -59,7 +57,7 @@ public class MiscModule
      
     public static void contributeComponentClassResolver(Configuration<LibraryMapping> configuration)
     {
-        configuration.add(new LibraryMapping("tm", "com.trsvax.tapestry.misc"));
+        configuration.add(new LibraryMapping("tm", MiscModule.id));
     }
     
     public void contributeMarkupRenderer(OrderedConfiguration<MarkupRendererFilter> configuration, final Environment environment) {
@@ -88,7 +86,7 @@ public class MiscModule
     
     public static void contributeBindingSource(MappedConfiguration<String, BindingFactory> configuration,
 
-    		@InjectService("DefaultBindingFactory")
+    		@InjectService(DefaultBindingFactory.id)
     		BindingFactory defaultBindingFactory
     		) {
         configuration.add("default", defaultBindingFactory);       
@@ -96,7 +94,7 @@ public class MiscModule
     
     @Contribute(Defaults.class)
     public static void contributeDefautls(MappedConfiguration<String, StaticDefaults> configuration) {
-    	configuration.add(id,new MyDefaults());
+    	configuration.add(MiscModule.id,new MiscDefaults());
     }
     
   

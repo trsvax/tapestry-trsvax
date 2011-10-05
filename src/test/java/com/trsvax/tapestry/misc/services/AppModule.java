@@ -14,7 +14,7 @@ public class AppModule {
     
     public void contributeApplicationDefaults(MappedConfiguration<String, String> configuration)
     {
-      configuration.add("MiscModule:defaultKey:abc", "WackyCollaborator");
+      configuration.add(MiscDefaults.defaultKey, "WackyCollaborator");
     }
     
    
