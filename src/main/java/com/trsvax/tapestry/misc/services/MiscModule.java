@@ -7,11 +7,13 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.InjectService;
+import org.apache.tapestry5.ioc.annotations.Primary;
 import org.apache.tapestry5.ioc.services.Coercion;
 import org.apache.tapestry5.ioc.services.CoercionTuple;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.runtime.Component;
 import org.apache.tapestry5.services.BindingFactory;
+import org.apache.tapestry5.services.ComponentClassResolver;
 import org.apache.tapestry5.services.ComponentClassTransformWorker;
 import org.apache.tapestry5.services.Environment;
 import org.apache.tapestry5.services.LibraryMapping;
@@ -19,6 +21,7 @@ import org.apache.tapestry5.services.MarkupRenderer;
 import org.apache.tapestry5.services.MarkupRendererFilter;
 import org.apache.tapestry5.services.PartialMarkupRenderer;
 import org.apache.tapestry5.services.PartialMarkupRendererFilter;
+import org.apache.tapestry5.services.meta.MetaWorker;
 
 import com.trsvax.tapestry.StyleSupport;
 import com.trsvax.tapestry.StyleSupportImpl;
@@ -34,6 +37,7 @@ public class MiscModule
     public static void bind(ServiceBinder binder)
     {
         binder.bind(BindingFactory.class,DefaultBindingFactory.class).withId(DefaultBindingFactory.id);
+        binder.bind(NVLService.class,NVLServiceImpl.class);
     }
     
     @Contribute(ComponentClassTransformWorker.class)   
@@ -95,6 +99,12 @@ public class MiscModule
     @Contribute(Defaults.class)
     public static void contributeDefautls(MappedConfiguration<String, StaticDefaults> configuration) {
     	configuration.add(MiscModule.id,new MiscDefaults());
+    }
+    
+    @Contribute(ComponentClassTransformWorker.class)
+    @Primary
+    public static void provideTransformWorkers(OrderedConfiguration<ComponentClassTransformWorker> configuration, NVLService nvlService) {
+    	configuration.add("NVLWorker", new NVLWorker(nvlService),"after:onEvent");
     }
     
   

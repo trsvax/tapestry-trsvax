@@ -1,6 +1,6 @@
 package com.trsvax.tapestry.misc.services;
 
-public class ConstructorFactory implements InterfaceFactory {
+public class ConstructorFactory implements NVLFactory {
 	private final Class<?> clazz;
 	
 	public ConstructorFactory(Class<?> clazz) {

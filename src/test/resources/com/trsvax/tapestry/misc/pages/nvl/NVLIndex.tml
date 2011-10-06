@@ -1,0 +1,14 @@
+<html t:type="layout" 
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+      
+      
+     NVL
+     
+     <t:pagelink page="nvl/edit">new</t:pagelink><br/>
+     <t:grid t:id="people" row="person">
+     	<p:nameCell>
+     		<t:pagelink page="nvl/edit" context="person.key">${person.name}</t:pagelink>
+     	</p:nameCell>
+     </t:grid>      
+</html>
