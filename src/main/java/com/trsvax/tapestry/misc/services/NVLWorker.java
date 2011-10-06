@@ -27,10 +27,10 @@ public class NVLWorker  implements ComponentClassTransformWorker {
 			if ( nvlService.isImplemented(field.getType())) {
 				transformation.addComponentEventHandler(EventConstants.ACTIVATE, 0, 
 						"Parameter has default", handle(field.getAccess(),field.getType()));
-				//if ( field.getAnnotation(NVL.class).persist() ) {
+				if ( field.getAnnotation(NVL.class).persist() ) {
 					transformation.addComponentEventHandler(EventConstants.PREPARE_FOR_SUBMIT, 0, 
 							"Persist Parameter", persist(field.getAccess(),field.getType()));
-				//}
+				}
 			}			
 		}		
 	}
