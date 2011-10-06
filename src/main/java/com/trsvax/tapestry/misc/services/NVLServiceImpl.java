@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class InterfaceImplmentationImpl implements InterfaceImplementation {
-	private final Map<Class,InterfaceFactory> classFactories;
-	private final Map<String,InterfaceFactory> stringFactories;
+public class NVLServiceImpl implements NVLService {
+	private final Map<Class,NVLFactory> classFactories;
+	private final Map<String,NVLFactory> stringFactories;
 	
-	public InterfaceImplmentationImpl(Map<Class,InterfaceFactory> factories) {
+	public NVLServiceImpl(Map<Class,NVLFactory> factories) {
 		this.classFactories = factories;
-		stringFactories = new HashMap<String, InterfaceFactory>(classFactories.size());
-		for ( Entry<Class,InterfaceFactory> e : factories.entrySet() ) {
+		stringFactories = new HashMap<String, NVLFactory>(classFactories.size());
+		for ( Entry<Class,NVLFactory> e : factories.entrySet() ) {
 			stringFactories.put(e.getKey().getName(), e.getValue());
 		}
 	}
@@ -27,5 +27,6 @@ public class InterfaceImplmentationImpl implements InterfaceImplementation {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
 
 }
