@@ -16,16 +16,25 @@ public class NVLServiceImpl implements NVLService {
 		}
 	}
 
-	public boolean isImplemented(String interfaceName) {
-		return stringFactories.containsKey(interfaceName);
+	public boolean isImplemented(String type) {
+		return stringFactories.containsKey(type);
 	}
 
-	public Object newInstance(String interfaceName) {
+	public Object newInstance(String type) {
 		try {
-			return stringFactories.get(interfaceName).newInstance();
+			return stringFactories.get(type).newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+
+	public void persist(String type, Object value) {
+		try {
+			stringFactories.get(type).persist(value);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 	
 

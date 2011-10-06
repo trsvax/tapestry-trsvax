@@ -15,17 +15,22 @@ import org.apache.tapestry5.services.TransformField;
 import com.trsvax.tapestry.misc.annotations.NVL;
 
 public class NVLWorker  implements ComponentClassTransformWorker {
-	private final NVLService interfaceImplementation;
+	private final NVLService nvlService;
 	
 	public NVLWorker(NVLService interfaceImplementation) {
-		this.interfaceImplementation = interfaceImplementation;
+		this.nvlService = interfaceImplementation;
 	}
 
 	public void transform(ClassTransformation transformation, MutableComponentModel model) {
 		List<TransformField> fields = transformation.matchFieldsWithAnnotation(NVL.class);
 		for ( TransformField field : fields ) {
-			if ( interfaceImplementation.isImplemented(field.getType())) {
-				transformation.addComponentEventHandler(EventConstants.ACTIVATE, 0, "Parameter has default", handle(field.getAccess(),field.getType()));
+			if ( nvlService.isImplemented(field.getType())) {
+				transformation.addComponentEventHandler(EventConstants.ACTIVATE, 0, 
+						"Parameter has default", handle(field.getAccess(),field.getType()));
+				//if ( field.getAnnotation(NVL.class).persist() ) {
+					transformation.addComponentEventHandler(EventConstants.PREPARE_FOR_SUBMIT, 0, 
+							"Persist Parameter", persist(field.getAccess(),field.getType()));
+				//}
 			}			
 		}		
 	}
@@ -35,9 +40,19 @@ public class NVLWorker  implements ComponentClassTransformWorker {
 			
 			public void handleEvent(Component instance, ComponentEvent event) {
 				if ( access.read(instance) == null ) {
-					Object value = interfaceImplementation.newInstance(type);
+					Object value = nvlService.newInstance(type);
 					access.write(instance, value);
 				}
+			}
+		};
+		
+	}
+	
+	private  ComponentEventHandler persist(final FieldAccess access, final String type) {
+		return new  ComponentEventHandler() {
+			
+			public void handleEvent(Component instance, ComponentEvent event) {
+					nvlService.persist(type,access.read(instance));
 			}
 		};
 		

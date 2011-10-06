@@ -6,6 +6,7 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.services.ValueEncoderFactory;
+import org.slf4j.Logger;
 
 import com.trsvax.tapestry.misc.implementations.PersonImpl;
 import com.trsvax.tapestry.misc.interfaces.Person;
@@ -24,8 +25,8 @@ public class AppModule {
     }
     
     @Contribute(NVLService.class)
-    public static void contributeFactories(MappedConfiguration<Class, NVLFactory> configuration) {
-    	configuration.add(Person.class,new ConstructorFactory(PersonImpl.class));
+    public static void contributeFactories(Logger logger, MappedConfiguration<Class, NVLFactory> configuration) {
+    	configuration.add(Person.class,new ConstructorFactory(logger, PersonImpl.class));
     }
     
    
