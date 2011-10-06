@@ -17,8 +17,8 @@ import com.trsvax.tapestry.misc.annotations.NVL;
 public class NVLWorker  implements ComponentClassTransformWorker {
 	private final NVLService nvlService;
 	
-	public NVLWorker(NVLService interfaceImplementation) {
-		this.nvlService = interfaceImplementation;
+	public NVLWorker(NVLService nvlService) {
+		this.nvlService = nvlService;
 	}
 
 	public void transform(ClassTransformation transformation, MutableComponentModel model) {
@@ -28,7 +28,7 @@ public class NVLWorker  implements ComponentClassTransformWorker {
 				transformation.addComponentEventHandler(EventConstants.ACTIVATE, 0, 
 						"Parameter has default", handle(field.getAccess(),field.getType()));
 				if ( field.getAnnotation(NVL.class).persist() ) {
-					transformation.addComponentEventHandler(EventConstants.PREPARE_FOR_SUBMIT, 0, 
+					transformation.addComponentEventHandler(EventConstants.SUCCESS, 0, 
 							"Persist Parameter", persist(field.getAccess(),field.getType()));
 				}
 			}			
