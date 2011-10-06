@@ -4,7 +4,7 @@ import org.apache.tapestry5.beaneditor.NonVisual;
 
 public interface Person {
 	
-	//@NonVisual
+	@NonVisual
 	public String getKey();
 	public void setKey(String key);
 	

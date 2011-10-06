@@ -39,7 +39,22 @@ public class AppModule {
 				return new ValueEncoder<Person>() {
 
 					public String toClient(Person entity) {
-						return entity.getName();
+						return entity.getKey();
+					}
+
+					public Person toValue(String key) {
+						return peopleDAO.get( key );
+					}
+				};
+			}
+		});
+    	configuration.add(PersonImpl.class, new ValueEncoderFactory<Person>() {
+
+			public ValueEncoder<Person> create(Class<Person> type) {
+				return new ValueEncoder<Person>() {
+
+					public String toClient(Person entity) {
+						return entity.getKey();
 					}
 
 					public Person toValue(String key) {

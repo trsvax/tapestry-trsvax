@@ -3,12 +3,12 @@
       xmlns:p="tapestry:parameter">
       
       
-     NVL
+     <h2>NVL</h2>
      
      <t:pagelink page="nvl/edit">new</t:pagelink><br/>
      <t:grid t:id="people" row="person">
      	<p:nameCell>
-     		<t:pagelink page="nvl/edit" context="person.key">${person.name}</t:pagelink>
+     		<t:pagelink page="nvl/edit" context="person">${person.name}</t:pagelink>
      	</p:nameCell>
      </t:grid>      
 </html>
